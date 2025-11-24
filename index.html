@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conteúdo Prova</title>
-    <meta property="og:title" content="Conteúdo Prova">
-    <meta property="og:description" content="Todo conteúdo das provas do 4° Bimestre está aqui resumidamente para você!">
-    <meta property="og:image" content="https://iili.io/fKchJr7.md.png">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://conteudo-prova.vercel.app/">
+    <title>Matérias Escolares</title>
     <style>
         * {
             margin: 0;
@@ -72,6 +67,7 @@
         .geografia { background: linear-gradient(135deg, #FFA500, #FF6347); }
         .ciencias { background: linear-gradient(135deg, #9B59B6, #6C3483); }
         .matematica { background: linear-gradient(135deg, #4A90E2, #2E5C8A); }
+        .ingles { background: linear-gradient(135deg, #00CED1, #008B8B); }
 
         .modal {
             display: none;
@@ -228,23 +224,26 @@
     </style>
 </head>
 <body>
-        <h1>Conteúdo Prova</h1>
+    <h1>📚 Matérias Escolares</h1>
     
     <div class="container">
         <button class="subject-btn portugues" onclick="openModal('portugues')">
-            Língua Portuguesa
+            📖 Língua Portuguesa
         </button>
         <button class="subject-btn historia" onclick="openModal('historia')">
-            História
+            🏛️ História
         </button>
         <button class="subject-btn geografia" onclick="openModal('geografia')">
-            Geografia
+            🌍 Geografia
         </button>
         <button class="subject-btn ciencias" onclick="openModal('ciencias')">
-            Ciências
+            🔬 Ciências
         </button>
         <button class="subject-btn matematica" onclick="openModal('matematica')">
-            Matemática
+            🔢 Matemática
+        </button>
+        <button class="subject-btn ingles" onclick="openModal('ingles')">
+            🇬🇧 Inglês
         </button>
     </div>
 
@@ -257,10 +256,10 @@
             <div class="modal-text" id="modalText"></div>
             <div class="action-buttons">
                 <button class="action-btn copy-btn" onclick="copyText()">
-                    Copiar Texto
+                    📋 Copiar Texto
                 </button>
                 <button class="action-btn download-btn" onclick="downloadFile()">
-                    Baixar Arquivo .txt
+                    💾 Baixar Arquivo
                 </button>
             </div>
         </div>
@@ -303,33 +302,31 @@ Principais: a, de, em, para, por, com, sem, sobre`
             
             historia: {
                 titulo: "História",
-                texto: `A História é a ciência que estuda o passado da humanidade, suas transformações e acontecimentos ao longo do tempo.
-
-Áreas de estudo:
-• História Antiga: Civilizações mesopotâmicas, egípcias, gregas e romanas
-• História Medieval: Feudalismo, Igreja Católica, Cruzadas
-• História Moderna: Renascimento, Grandes Navegações, Absolutismo
-• História Contemporânea: Revoluções, Guerras Mundiais, Globalização
-
-Estudar história nos ajuda a compreender o presente através do passado e a construir um futuro mais consciente. É essencial para o exercício da cidadania e para entender as transformações sociais, políticas e econômicas.`
+                texto: `Em breve galera!! e por favor se você gostar dos resumos avisa ai :)`
             },
             
             geografia: {
                 titulo: "Geografia",
-                texto: `A Geografia estuda a superfície terrestre, seus fenômenos naturais e a relação entre o homem e o espaço.
+                texto: `1. Escalas cartográficas
+Representam a relação entre medidas do mapa e da realidade. Podem ser numéricas (1:10.000) ou gráficas. Escalas maiores mostram mais detalhes; menores mostram áreas maiores. Para achar distâncias reais, multiplica-se a medida pela escala.
 
-Divisões principais:
-• Geografia Física: Relevo, clima, hidrografia, vegetação
-• Geografia Humana: População, urbanização, economia, cultura
-• Cartografia: Mapas, coordenadas geográficas, escalas
+2. Coordenadas geográficas
+Localizam pontos na Terra usando latitude (N/S) e longitude (L/O) medidas em graus. A combinação define hemisfério e posição exata.
 
-Temas importantes:
-- Meio ambiente e sustentabilidade
-- Globalização e suas consequências
-- Recursos naturais e sua distribuição
-- Formação e transformação do espaço geográfico
+3. Projeções cartográficas
+Como a Terra é esférica, todo mapa tem deformações. Projeções podem ser cilíndrica (mapas-múndi), cônica (médias latitudes) ou azimutal (áreas centradas). Cada uma atende a um objetivo específico.
 
-A Geografia nos ajuda a compreender o mundo em que vivemos, suas diversidades e desafios contemporâneos como mudanças climáticas e desigualdades sociais.`
+4. Fusos horários
+A Terra tem 24 fusos de 15°. Ao leste somam-se horas; ao oeste subtraem-se. A linha de mudança de data fica perto dos 180°. Países podem ajustar horários por decisões internas.
+
+5. Tecnologia na cartografia
+Evoluiu de mapas simples para fotos aéreas, satélites e GPS. O GPS facilita a localização, mas não substitui mapas nem sistemas cartográficos.
+
+6. Orientação
+Pode ser feita por estrelas (Cruzeiro do Sul), bússola (norte magnético), Sol (leste/oeste) ou GPS (coordenadas precisas).
+
+7. Elementos de um mapa
+Título, legenda, orientação, escala e fonte são essenciais para interpretar corretamente qualquer mapa.`
             },
             
             ciencias: {
@@ -343,22 +340,12 @@ O som é uma vibração que se espalha pelo ar. O ouvido capta essas vibrações
             
             matematica: {
                 titulo: "Matemática",
-                texto: `A Matemática é a ciência que estuda números, formas, padrões e suas relações lógicas.
-
-Áreas principais:
-• Aritmética: Operações básicas com números
-• Álgebra: Equações, funções e expressões
-• Geometria: Formas, ângulos e medidas
-• Estatística: Análise e interpretação de dados
-• Probabilidade: Cálculo de chances e possibilidades
-
-Aplicações no dia a dia:
-- Cálculos financeiros e orçamentos
-- Medidas e construções
-- Tecnologia e programação
-- Análise de dados e pesquisas
-
-A matemática desenvolve o raciocínio lógico, a capacidade de resolução de problemas e é fundamental para diversas profissões e para a compreensão do mundo moderno.`
+                texto: `Em breve galera!! e por favor se você gostar dos resumos avisa ai :)`
+            },
+            
+            ingles: {
+                titulo: "Inglês",
+                texto: `Em breve galera!! e por favor se você gostar dos resumos avisa ai :)`
             }
         };
 
