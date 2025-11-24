@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matérias Escolares</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .subject-btn {
+            padding: 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subject-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .subject-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .portugues { background: linear-gradient(135deg, #90EE90, #32CD32); }
+        .historia { background: linear-gradient(135deg, #FF6B6B, #C92A2A); }
+        .geografia { background: linear-gradient(135deg, #FFA500, #FF6347); }
+        .ciencias { background: linear-gradient(135deg, #9B59B6, #6C3483); }
+        .matematica { background: linear-gradient(135deg, #4A90E2, #2E5C8A); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-text {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #4A90E2, #2E5C8A);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #32CD32, #228B22);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .subject-btn {
+                padding: 25px;
+                font-size: 1.1rem;
+            }
+
+            .modal-content {
+                margin: 20px auto;
+                padding: 20px;
+                width: 95%;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Matérias Escolares</h1>
+    
+    <div class="container">
+        <button class="subject-btn portugues" onclick="openModal('portugues')">
+            📖 Língua Portuguesa
+        </button>
+        <button class="subject-btn historia" onclick="openModal('historia')">
+            🏛️ História
+        </button>
+        <button class="subject-btn geografia" onclick="openModal('geografia')">
+            🌍 Geografia
+        </button>
+        <button class="subject-btn ciencias" onclick="openModal('ciencias')">
+            🔬 Ciências
+        </button>
+        <button class="subject-btn matematica" onclick="openModal('matematica')">
+            🔢 Matemática
+        </button>
+    </div>
+
+    <div id="modal" class="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-text" id="modalText"></div>
+            <div class="action-buttons">
+                <button class="action-btn copy-btn" onclick="copyText()">
+                    📋 Copiar Texto
+                </button>
+                <button class="action-btn download-btn" onclick="downloadFile()">
+                    💾 Baixar Arquivo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // ÁREA PARA EDITAR OS TEXTOS DAS MATÉRIAS
+        // ==========================================
+        
+        const conteudos = {
+            portugues: {
+                titulo: "Língua Portuguesa",
+                texto: `A Língua Portuguesa é um idioma rico e diversificado, falado por mais de 260 milhões de pessoas em todo o mundo.
+
+Principais características:
+• Origem no latim vulgar
+• Idioma oficial em 9 países
+• Rica em verbos e conjugações
+• Literatura vasta e reconhecida mundialmente
+
+O estudo da língua portuguesa envolve gramática, literatura, interpretação de texto, redação e análise linguística. É fundamental para a comunicação efetiva e para o desenvolvimento do pensamento crítico.
+
+Grandes autores: Machado de Assis, Fernando Pessoa, Clarice Lispector, José Saramago, entre outros.`
+            },
+            
+            historia: {
+                titulo: "História",
+                texto: `A História é a ciência que estuda o passado da humanidade, suas transformações e acontecimentos ao longo do tempo.
+
+Áreas de estudo:
+• História Antiga: Civilizações mesopotâmicas, egípcias, gregas e romanas
+• História Medieval: Feudalismo, Igreja Católica, Cruzadas
+• História Moderna: Renascimento, Grandes Navegações, Absolutismo
+• História Contemporânea: Revoluções, Guerras Mundiais, Globalização
+
+Estudar história nos ajuda a compreender o presente através do passado e a construir um futuro mais consciente. É essencial para o exercício da cidadania e para entender as transformações sociais, políticas e econômicas.`
+            },
+            
+            geografia: {
+                titulo: "Geografia",
+                texto: `A Geografia estuda a superfície terrestre, seus fenômenos naturais e a relação entre o homem e o espaço.
+
+Divisões principais:
+• Geografia Física: Relevo, clima, hidrografia, vegetação
+• Geografia Humana: População, urbanização, economia, cultura
+• Cartografia: Mapas, coordenadas geográficas, escalas
+
+Temas importantes:
+- Meio ambiente e sustentabilidade
+- Globalização e suas consequências
+- Recursos naturais e sua distribuição
+- Formação e transformação do espaço geográfico
+
+A Geografia nos ajuda a compreender o mundo em que vivemos, suas diversidades e desafios contemporâneos como mudanças climáticas e desigualdades sociais.`
+            },
+            
+            ciencias: {
+                titulo: "Ciências",
+                texto: `Ciências é a área do conhecimento que estuda os fenômenos naturais através de métodos científicos e experimentação.
+
+Principais ramos:
+• Biologia: Estudo dos seres vivos
+• Química: Estudo da matéria e suas transformações
+• Física: Estudo da energia, movimento e forças
+• Astronomia: Estudo do universo e corpos celestes
+
+O método científico inclui:
+1. Observação
+2. Formulação de hipóteses
+3. Experimentação
+4. Análise de resultados
+5. Conclusão
+
+As ciências são fundamentais para o desenvolvimento tecnológico, para a compreensão do mundo natural e para a solução de problemas complexos da humanidade, como saúde, energia e meio ambiente.`
+            },
+            
+            matematica: {
+                titulo: "Matemática",
+                texto: `A Matemática é a ciência que estuda números, formas, padrões e suas relações lógicas.
+
+Áreas principais:
+• Aritmética: Operações básicas com números
+• Álgebra: Equações, funções e expressões
+• Geometria: Formas, ângulos e medidas
+• Estatística: Análise e interpretação de dados
+• Probabilidade: Cálculo de chances e possibilidades
+
+Aplicações no dia a dia:
+- Cálculos financeiros e orçamentos
+- Medidas e construções
+- Tecnologia e programação
+- Análise de dados e pesquisas
+
+A matemática desenvolve o raciocínio lógico, a capacidade de resolução de problemas e é fundamental para diversas profissões e para a compreensão do mundo moderno.`
+            }
+        };
+
+        // ==========================================
+        // FIM DA ÁREA DE EDIÇÃO
+        // ==========================================
+
+        let currentSubject = '';
+
+        function openModal(subject) {
+            currentSubject = subject;
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const text = document.getElementById('modalText');
+            
+            title.textContent = conteudos[subject].titulo;
+            text.textContent = conteudos[subject].texto;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOutside(event) {
+            if (event.target.id === 'modal') {
+                closeModal();
+            }
+        }
+
+        function copyText() {
+            const text = document.getElementById('modalText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                btn.style.background = 'linear-gradient(135deg, #32CD32, #228B22)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'linear-gradient(135deg, #4A90E2, #2E5C8A)';
+                }, 2000);
+            });
+        }
+
+        function downloadFile() {
+            const text = conteudos[currentSubject].texto;
+            const titulo = conteudos[currentSubject].titulo;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${titulo.replace(/\s+/g, '_')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Baixado!';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+            }, 2000);
+        }
+
+        // Fechar modal com tecla ESC
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
